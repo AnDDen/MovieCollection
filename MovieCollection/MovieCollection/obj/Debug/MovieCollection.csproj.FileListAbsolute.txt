@@ -1,0 +1,10 @@
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\bin\Debug\MovieCollection.exe.config
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\bin\Debug\MovieCollection.exe
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\bin\Debug\MovieCollection.pdb
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.csprojResolveAssemblyReference.cache
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.Properties.Resources.resources
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.csproj.GenerateResource.Cache
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.exe
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.pdb
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.Form1.resources
+D:\2 Курс\Лабы\ПрБД\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddMovieForm.resources

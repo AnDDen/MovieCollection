@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -49,23 +49,6 @@
             this.panel1.Size = new System.Drawing.Size(869, 57);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 57);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(869, 469);
-            this.panel2.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Добавить фильм";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.button3);
@@ -77,12 +60,14 @@
             this.panel3.Size = new System.Drawing.Size(486, 57);
             this.panel3.TabIndex = 1;
             // 
-            // textBox1
+            // button3
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 17);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 22);
-            this.textBox1.TabIndex = 0;
+            this.button3.Location = new System.Drawing.Point(321, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(153, 32);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Расширенный поиск";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -93,14 +78,30 @@
             this.button2.Text = "Поиск";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // textBox1
             // 
-            this.button3.Location = new System.Drawing.Point(321, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(153, 32);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Расширенный поиск";
-            this.button3.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(11, 17);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(196, 22);
+            this.textBox1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(155, 32);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Добавить фильм";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 57);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(869, 469);
+            this.panel2.TabIndex = 1;
             // 
             // Form1
             // 

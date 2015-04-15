@@ -142,6 +142,36 @@ namespace MovieCollection
             connection.Close();
         }
 
-        
+        public static void InsertMovie()
+        {
+        }
+
+        public static Dictionary<int, string> GetGenres()
+        {
+            SQLiteConnection connection;
+            connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;");
+            connection.Open();
+
+            Dictionary<int, string> genres = new Dictionary<int, string>();
+
+            string sql = @"SELECT Genre_ID, Name
+                           FROM Genre;";
+            
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    genres.Add(Convert.ToInt32(r["Genre_ID"]), r["Name"].ToString());
+                }
+                r.Close();
+            }
+            catch (Exception) {  }
+
+            connection.Close();
+            
+            return genres;
+        }
     }
 }

@@ -50,13 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddGenreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddGenreForm.Designer.cs">
+      <DependentUpon>AddGenreForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddMovieForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddMovieForm.Designer.cs">
       <DependentUpon>AddMovieForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateDB.cs" />
+    <Compile Include="AddRoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRoleForm.Designer.cs">
+      <DependentUpon>AddRoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateBase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,8 +78,14 @@
     <Compile Include="Classes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddGenreForm.resx">
+      <DependentUpon>AddGenreForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddMovieForm.resx">
       <DependentUpon>AddMovieForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRoleForm.resx">
+      <DependentUpon>AddRoleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

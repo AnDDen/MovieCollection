@@ -15,28 +15,28 @@ namespace MovieCollection
         public static void Create()
         {
             SQLiteConnection.CreateFile(PATH);
-            SQLiteConnection connection;
-            connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;");
-            connection.Open();
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
 
-            // Create table Genre
-            string sql = @"CREATE TABLE Genre (
+                // Create table Genre
+                string sql = @"CREATE TABLE Genre (
                             Genre_ID NUMBER PRIMARY KEY,
                             Name VARCHAR2(200) NOT NULL UNIQUE
                             )";
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Studio
-            sql = @"CREATE TABLE Studio (
+                // Create table Studio
+                sql = @"CREATE TABLE Studio (
                     Studio_ID NUMBER PRIMARY KEY,
                     Name VARCHAR2(1000) NOT NULL UNIQUE
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Movie
-            sql = @"CREATE TABLE Movie (
+                // Create table Movie
+                sql = @"CREATE TABLE Movie (
                     Movie_ID NUMBER PRIMARY KEY,
                     Name VARCHAR2(200) NOT NULL,
                     Description VARCHAR2(2000), 
@@ -46,49 +46,49 @@ namespace MovieCollection
                     Studio_ID NUMBER NULL,
                     CONSTRAINT studio_fk FOREIGN KEY (Studio_ID) REFERENCES Studio(Studio_ID)
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Movie_Genre
-            sql = @"CREATE TABLE Movie_Genre (
+                // Create table Movie_Genre
+                sql = @"CREATE TABLE Movie_Genre (
                     Movie_ID NUMBER NOT NULL,
                     Genre_ID NUMBER NOT NULL,
                     CONSTRAINT mg_movie_fk FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID),
                     CONSTRAINT mg_genre_fk FOREIGN KEY (Genre_ID) REFERENCES Genre(Genre_ID)
-            )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                    )";
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Image
-            sql = @"CREATE TABLE Image (
+                // Create table Image
+                sql = @"CREATE TABLE Image (
                     Image_ID NUMBER PRIMARY KEY,
                     URL VARCHAR2(200) NOT NULL,
                     Description VARCHAR2(1000), 
                     Movie_ID NUMBER NOT NULL,
                     CONSTRAINT movie_fk FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID)
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Human
-            sql = @"CREATE TABLE Human (
+                // Create table Human
+                sql = @"CREATE TABLE Human (
                     Human_ID NUMBER PRIMARY KEY,
                     Name VARCHAR2(200) NOT NULL,
                     Surname VARCHAR2(200) NOT NULL
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Role_Type
-            sql = @"CREATE TABLE Role_Type (
+                // Create table Role_Type
+                sql = @"CREATE TABLE Role_Type (
                     Type_ID NUMBER PRIMARY KEY,
                     Name VARCHAR2(200) NOT NULL
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Create table Role
-            sql = @"CREATE TABLE Role (
+                // Create table Role
+                sql = @"CREATE TABLE Role (
                     Movie_ID NUMBER NOT NULL,
                     Type_ID NUMBER NOT NULL,
                     Human_ID NUMBER NOT NULL,
@@ -97,19 +97,19 @@ namespace MovieCollection
                     CONSTRAINT type_fk2 FOREIGN KEY (Type_ID) REFERENCES Role_Type(Type_ID),
                     CONSTRAINT human_fk3 FOREIGN KEY (Human_ID) REFERENCES Human(Human_ID)
                     )";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Insert role types
-            sql = @"INSERT INTO Role_Type VALUES (1, 'Актёр');
+                // Insert role types
+                sql = @"INSERT INTO Role_Type VALUES (1, 'Актёр');
                     INSERT INTO Role_Type VALUES (2, 'Сценарист');
                     INSERT INTO Role_Type VALUES (3, 'Режиссёр');
                     ";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            // Insert genres
-            sql = @"INSERT INTO Genre VALUES (1, 'Аниме');
+                // Insert genres
+                sql = @"INSERT INTO Genre VALUES (1, 'Аниме');
                     INSERT INTO Genre VALUES (2, 'Биография');
                     INSERT INTO Genre VALUES (3, 'Боевик');
                     INSERT INTO Genre VALUES (4, 'Вестерн');
@@ -136,42 +136,66 @@ namespace MovieCollection
                     INSERT INTO Genre VALUES (25, 'Фантастика');
                     INSERT INTO Genre VALUES (26, 'Фэнтези');
                     ";
-            command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-            connection.Close();
+                connection.Close();
+            }
         }
 
-        public static void InsertMovie()
+        public static string AddQuotes(string str)
         {
+            return "'" + str + "'";
         }
 
-        public static Dictionary<int, string> GetGenres()
+        public static void InsertMovie(Movie movie)
         {
-            SQLiteConnection connection;
-            connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;");
-            connection.Open();
-
-            Dictionary<int, string> genres = new Dictionary<int, string>();
-
-            string sql = @"SELECT Genre_ID, Name
-                           FROM Genre;";
-            
-            try
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
             {
+                connection.Open();
+
+                string sql = @"SELECT COUNT(*) FROM Movie;";
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+
+                int id = (int)command.ExecuteScalar() + 1;
+
+                sql = @"INSERT INTO Movie (Movie_ID, Name, Description, Year, Age, Link, Studio_ID) VALUES " + 
+                    string.Format("({1}, {2}, {3}, {4}, {5}, {6}, {7})", id, AddQuotes(movie.Name), AddQuotes(movie.Description), movie.Year, movie.Age,
+                                  AddQuotes(movie.Link), movie.MovieStudio.StudioID);
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+
+
+                connection.Close();
+            }
+        }
+
+        public static List<Genre> GetGenres()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                List<Genre> genres = new List<Genre>();
+
+                string sql = @"SELECT Genre_ID, Name
+                           FROM Genre;";
+
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
                 SQLiteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {
-                    genres.Add(Convert.ToInt32(r["Genre_ID"]), r["Name"].ToString());
+                    genres.Add(new Genre(Convert.ToInt32(r["Genre_ID"]), r["Name"].ToString()));
                 }
                 r.Close();
-            }
-            catch (Exception) {  }
 
-            connection.Close();
-            
-            return genres;
+                connection.Close();
+
+                return genres;
+            }
         }
     }
 }

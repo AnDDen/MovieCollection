@@ -23,11 +23,16 @@ namespace MovieCollection
         public int StudioID { get; set; }
         public string Name { get; set; }
 
-        public Studio(int id, string name)
+        public IList<Movie> Movies { get; set; }
+
+        public Studio(int id, string name, List<Movie> movies)
         {
             StudioID = id;
             Name = name;
+            Movies = movies;
         }
+
+        public Studio(int id, string name) : this(id, name, new List<Movie>()) { }
     }
 
     public class Human
@@ -55,11 +60,11 @@ namespace MovieCollection
         }
     } */
 
-    enum RoleType
+    public enum RoleType
     {
-        Actor,
-        Writer,
-        Director
+        Actor = 1,
+        Writer = 2,
+        Director = 3
     }
 
     public class Movie
@@ -71,12 +76,12 @@ namespace MovieCollection
         public string Link { get; set; }
         public Studio MovieStudio { get; set; }
 
-        public List<int> Genres { get; set; }
-        public List<Image> Images { get; set; }
-        public Dictionary<Human, RoleType> Roles { get; set; }
+        public IList<Genre> Genres { get; set; }
+        public IList<Image> Images { get; set; }
+        public IList<Role> Roles { get; set; }
 
-        public Movie(string name, string description, int year, int age, string link, Studio movieStudio, 
-            List<int> genres, List<Image> images, Dictionary<Human, RoleType> roles)
+        public Movie(string name, string description, int year, int age, string link, Studio movieStudio,
+            IList<Genre> genres, IList<Image> images, IList<Role> roles)
         {
             Name = name;
             Description = description;
@@ -88,8 +93,29 @@ namespace MovieCollection
             Images = images;
             Roles = roles;
         }
-        public Movie(string name) : this(name, "", 0, 0, "", null, 
-            new List<int>(), new List<Image>(), new Dictionary<Human, RoleType>()) { } 
+        public Movie(string name) : this(name, "", 0, 0, "", null,
+            new List<Genre>(), new List<Image>(), new List<Role>()) { } 
+    }
+
+    public class Role
+    {
+        public Human Human { get; set; }
+        public RoleType Type { get; set; }
+        public Movie Movie { get; set; }
+        public string Character { get; set; }
+
+        public Role(Human human, RoleType type, Movie movie, string character)
+        {
+            Human = human;
+            Type = type;
+            Movie = movie;
+            if (type == RoleType.Actor)
+                Character = character;
+            else
+                Character = null;
+        }
+
+        public Role(Human human, RoleType type, Movie movie) : this(human, type, movie, null) { }
     }
 
     public class Image

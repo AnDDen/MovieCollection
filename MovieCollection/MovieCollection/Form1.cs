@@ -28,6 +28,7 @@ namespace MovieCollection
             AddMovieForm movieForm = new AddMovieForm();
             if (movieForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+
             }
         }
     }

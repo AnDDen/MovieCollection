@@ -16,24 +16,29 @@ namespace MovieCollection
         {
             InitializeComponent();
 
-            MovieGenres = new Dictionary<int, string>();
+            MovieGenres = new List<Genre>();
+
+            comboBox1.Items.Clear();
+            genres = DataBase.GetGenres();
+            foreach (Genre g in genres)
+            {
+                comboBox1.Items.Add(g.Name);
+            }
+            comboBox1.SelectedIndex = 0;
         }
 
-        Dictionary<int, string> genres;
+        IList<Genre> genres;
 
-        //public string GenreName { get; set; }
-        //public int GenreID { get; set; }
-
-        public Dictionary<int, string> MovieGenres { get; set; }
+        public IList<Genre> MovieGenres { get; set; }
 
         IList<Panel> genrePanels = new List<Panel>();
 
-        void AddPanel(int genreID)
+        void AddPanel(Genre g)
         {
             Panel p = new Panel();
             int k = genrePanels.Count;
 
-            p.Name = string.Format("genrePanel{0}", genreID);
+            p.Name = string.Format("genrePanel{0}", g.GenreID);
             p.Left = 0;
             p.Top = 40 * k;
             p.Width = 325;
@@ -45,10 +50,10 @@ namespace MovieCollection
             b.Height = 28;
             b.Left = 220;
             b.Top = 6;
-            b.Click += (sender, e) => { Delete(genreID); };
+            b.Click += (sender, e) => { Delete(g); };
 
             Label l = new Label();
-            l.Text = MovieGenres[genreID];
+            l.Text = g.Name;
             l.Width = 200;
             l.Top = 11;
             l.Left = 3;
@@ -77,10 +82,10 @@ namespace MovieCollection
                 vScrollBar1.Visible = false;
         }
 
-        void Delete(int genreID)
+        void Delete(Genre g)
         {
-            MovieGenres.Remove(genreID);
-            Panel p = genrePanels.FirstOrDefault((x) => { return x.Name == string.Format("genrePanel{0}", genreID); });
+            MovieGenres.Remove(g);
+            Panel p = genrePanels.FirstOrDefault((x) => { return x.Name == string.Format("genrePanel{0}", g.GenreID); });
             int k = genrePanels.IndexOf(p);
 
             foreach (Control c in panel.Controls)
@@ -105,26 +110,24 @@ namespace MovieCollection
                 vScrollBar1.Visible = false;
         }
 
-        private void AddGenreForm_Load(object sender, EventArgs e)
-        {
-            comboBox1.Items.Clear();
-            genres = DataBase.GetGenres();
-            foreach (int id in genres.Keys)
-            {
-                comboBox1.Items.Add(genres[id]);
-            }
-            comboBox1.SelectedIndex = 0;
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             string name = comboBox1.SelectedItem.ToString();
 
-            if (!MovieGenres.ContainsValue(name))
+            if (MovieGenres.FirstOrDefault((x) => { return x.Name == name; }) == null)
             {
-                int id = genres.Keys.FirstOrDefault((x) => { return genres[x] == name; });
-                MovieGenres.Add(id, name);
-                AddPanel(id);
+                Genre g = genres.FirstOrDefault((x) => { return x.Name == name; });
+                MovieGenres.Add(g);
+                AddPanel(g);
+            }
+        }
+
+        public void AddGenres(IList<Genre> genres)
+        {
+            MovieGenres = genres;
+            foreach (Genre g in MovieGenres)
+            {
+                AddPanel(g);
             }
         }
 

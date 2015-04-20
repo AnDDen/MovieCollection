@@ -189,5 +189,10 @@ namespace MovieCollection
                 Movie.Images = imgForm.Images;
             }
         }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            Movie.MovieStudio = textBox8.Text;
+        }
     }
 }

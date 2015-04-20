@@ -74,13 +74,13 @@ namespace MovieCollection
         public int Year { get; set; }
         public int Age { get; set; }
         public string Link { get; set; }
-        public Studio MovieStudio { get; set; }
+        public string MovieStudio { get; set; }
 
         public IList<Genre> Genres { get; set; }
         public IList<Image> Images { get; set; }
         public IList<Role> Roles { get; set; }
 
-        public Movie(string name, string description, int year, int age, string link, Studio movieStudio,
+        public Movie(string name, string description, int year, int age, string link, string movieStudio,
             IList<Genre> genres, IList<Image> images, IList<Role> roles)
         {
             Name = name;
@@ -93,7 +93,7 @@ namespace MovieCollection
             Images = images;
             Roles = roles;
         }
-        public Movie(string name) : this(name, "", 0, 0, "", null,
+        public Movie(string name) : this(name, null, 2015, 0, null, null,
             new List<Genre>(), new List<Image>(), new List<Role>()) { } 
     }
 

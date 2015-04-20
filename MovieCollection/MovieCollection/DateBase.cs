@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace MovieCollection
 {
-    public static class DataBase
+    static class DataBase
     {
         private const string PATH = "movies.sqlite";
         
@@ -143,33 +143,84 @@ namespace MovieCollection
             }
         }
 
-        public static string AddQuotes(string str)
+        public static string ToSQLStr(string str)
         {
-            return "'" + str + "'";
+            if (str != null)
+                return "'" + str + "'";
+            return "NULL";
         }
 
-        public static void InsertMovie(Movie movie)
+        public static int InsertMovie(Movie movie)
         {
             using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
             {
                 connection.Open();
 
+                int studioID;
+
+                if (movie.MovieStudio != null)
+                {
+                    studioID = GetStudioID(movie.MovieStudio);
+                    if (studioID == -1)
+                        studioID = InsertStudio(movie.MovieStudio);
+                }
+                else
+                    studioID = -1;
+
+                // Insert into MOVIE
+
                 string sql = @"SELECT COUNT(*) FROM Movie;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
 
-                int id = (int)command.ExecuteScalar() + 1;
+                int id = Convert.ToInt32(command.ExecuteScalar()) + 1;
 
-                sql = @"INSERT INTO Movie (Movie_ID, Name, Description, Year, Age, Link, Studio_ID) VALUES " + 
-                    string.Format("({1}, {2}, {3}, {4}, {5}, {6}, {7})", id, AddQuotes(movie.Name), AddQuotes(movie.Description), movie.Year, movie.Age,
-                                  AddQuotes(movie.Link), movie.MovieStudio.StudioID);
+                sql = @"INSERT INTO Movie (Movie_ID, Name, Description, Year, Age, Link, Studio_ID) VALUES " +
+                    string.Format("({0}, {1}, {2}, {3}, {4}, {5}, {6});", id, ToSQLStr(movie.Name), ToSQLStr(movie.Description), movie.Year, movie.Age,
+                                   ToSQLStr(movie.Link), (studioID == -1) ? "NULL" : studioID.ToString() );
 
                 command = new SQLiteCommand(sql, connection);
                 command.ExecuteNonQuery();
 
+                // Insert into MOVIE_GENRE
 
+                foreach (Genre g in movie.Genres)
+                {
+                    command = new SQLiteCommand(sql, connection);
+                    sql = @"INSERT INTO Movie_Genre (Movie_ID, Genre_ID) VALUES " + string.Format("({0}, {1});", id, g.GenreID);
+                    command = new SQLiteCommand(sql, connection);
+                    command.ExecuteNonQuery();
+                }
+
+                // Insert into ROLE + HUMAN
+
+                foreach (Role r in movie.Roles)
+                {
+                    command = new SQLiteCommand(sql, connection);
+
+                    int humanID = GetHumanID(r.Human);
+                    if (humanID == -1)
+                        humanID = InsertHuman(r.Human);
+
+                    if (r.Type != RoleType.Actor)
+                        sql = @"INSERT INTO Role (Movie_ID, Type_ID, Human_ID) VALUES " + string.Format("({0}, {1}, {2});", id, (int)r.Type, humanID);
+                    else
+                        sql = @"INSERT INTO Role (Movie_ID, Type_ID, Human_ID, Character) VALUES " 
+                            + string.Format("({0}, {1}, {2}, {3});", id, (int)r.Type, humanID, ToSQLStr(r.Character));
+
+                    command = new SQLiteCommand(sql, connection);
+                    command.ExecuteNonQuery();
+                }
+
+                // Insert into IMAGE
+
+                foreach (Image img in movie.Images)
+                {
+                    InsertImage(img, id);
+                }
 
                 connection.Close();
+                return id;
             }
         }
 
@@ -195,6 +246,124 @@ namespace MovieCollection
                 connection.Close();
 
                 return genres;
+            }
+        }
+
+        public static int GetStudioID(string name)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                int id = -1;
+
+                string sql = string.Format("SELECT Studio_ID FROM Studio WHERE (Name = {0});", ToSQLStr(name));
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    id = Convert.ToInt32(r["Studio_ID"]);
+                }
+                r.Close();
+
+                connection.Close();
+
+                return id;
+            }
+        }
+
+        public static int InsertStudio(string name)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                string sql = @"SELECT COUNT(*) FROM Studio;";
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+
+                int id = Convert.ToInt32(command.ExecuteScalar()) + 1;
+
+                sql = @"INSERT INTO Studio (Studio_ID, Name) VALUES " + string.Format("({0}, {1});", id, ToSQLStr(name));
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                return id;
+            }
+        }
+
+        public static int GetHumanID(Human h)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                int id = -1;
+
+                string sql = string.Format("SELECT Human_ID FROM Human WHERE (Name = {0}) AND (Surname = {1});", ToSQLStr(h.Name), ToSQLStr(h.Surname));
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    id = Convert.ToInt32(r["Human_ID"]);
+                }
+                r.Close();
+
+                connection.Close();
+
+                return id;
+            }
+        }
+
+        public static int InsertHuman(Human h)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                string sql = @"SELECT COUNT(*) FROM Human;";
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+
+                int id = Convert.ToInt32(command.ExecuteScalar()) + 1;
+
+                sql = @"INSERT INTO Human (Human_ID, Name, Surname) VALUES " + string.Format("({0}, {1}, {2});", id, ToSQLStr(h.Name), ToSQLStr(h.Surname));
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                return id;
+            }
+        }
+
+        public static int InsertImage(Image img, int movieID)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                string sql = @"SELECT COUNT(*) FROM Image;";
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+
+                int id = Convert.ToInt32(command.ExecuteScalar()) + 1;
+
+                sql = @"INSERT INTO Image (Image_ID, URL, Description, Movie_ID) VALUES " 
+                    + string.Format("({0}, {1}, {2}, {3});", id, ToSQLStr(img.URL), ToSQLStr(img.Description), movieID);
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                return id;
             }
         }
     }

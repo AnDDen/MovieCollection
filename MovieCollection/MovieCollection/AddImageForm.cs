@@ -66,7 +66,8 @@ namespace MovieCollection
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             try
             {
-                pb.Image = System.Drawing.Image.FromFile(img.URL);
+                //pb.Image = System.Drawing.Image.FromFile(img.URL);
+                pb.Load(img.URL);
             }
             catch (Exception e)
             {
@@ -111,7 +112,8 @@ namespace MovieCollection
         {
             try
             {
-                pictureBox1.Image = System.Drawing.Image.FromFile(img.URL);
+                //pictureBox1.Image = System.Drawing.Image.FromFile(img.URL);
+                pictureBox1.Load(img.URL);
             }
             catch (Exception) { }
             label3.Text = img.Description;

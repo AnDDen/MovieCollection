@@ -69,7 +69,7 @@ namespace MovieCollection
                 //pb.Image = System.Drawing.Image.FromFile(img.URL);
                 pb.Load(img.URL);
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
 

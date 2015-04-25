@@ -175,11 +175,17 @@ namespace MovieCollection
 
                 int id = Convert.ToInt32(command.ExecuteScalar()) + 1;
 
-                sql = @"INSERT INTO Movie (Movie_ID, Name, Description, Year, Age, Link, Studio_ID) VALUES " +
-                    string.Format("({0}, {1}, {2}, {3}, {4}, {5}, {6});", id, ToSQLStr(movie.Name), ToSQLStr(movie.Description), movie.Year, movie.Age,
-                                   ToSQLStr(movie.Link), (studioID == -1) ? "NULL" : studioID.ToString() );
+                sql = @"INSERT INTO Movie (Movie_ID, Name, Description, Year, Age, Link, Studio_ID) VALUES (@ID, @NAME, @DESCR, @YEAR, @AGE, @LINK, @STUDIO_ID)";
 
                 command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@ID", id);
+                command.Parameters.AddWithValue("@NAME", movie.Name);
+                command.Parameters.AddWithValue("@DESCR", movie.Description);
+                command.Parameters.AddWithValue("@YEAR", movie.Year);
+                command.Parameters.AddWithValue("@AGE", movie.Age);
+                command.Parameters.AddWithValue("@LINK", movie.Link);
+                command.Parameters.AddWithValue("@STUDIO_ID", (studioID == -1) ? null : studioID.ToString());
+
                 command.ExecuteNonQuery();
 
                 // Insert into MOVIE_GENRE
@@ -187,12 +193,15 @@ namespace MovieCollection
                 foreach (Genre g in movie.Genres)
                 {
                     command = new SQLiteCommand(sql, connection);
-                    sql = @"INSERT INTO Movie_Genre (Movie_ID, Genre_ID) VALUES " + string.Format("({0}, {1});", id, g.GenreID);
+                    sql = @"INSERT INTO Movie_Genre (Movie_ID, Genre_ID) VALUES (@MOVIE_ID, @GENRE_ID);";
                     command = new SQLiteCommand(sql, connection);
+                    command.Parameters.AddWithValue("@MOVIE_ID", id);
+                    command.Parameters.AddWithValue("@GENRE_ID", g.GenreID);
+
                     command.ExecuteNonQuery();
                 }
 
-                // Insert into ROLE + HUMAN
+                // Insert into ROLE & HUMAN
 
                 foreach (Role r in movie.Roles)
                 {
@@ -366,5 +375,145 @@ namespace MovieCollection
                 return id;
             }
         }
+
+        public static Dictionary<int, string> SearchMovies(string searchStr)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                Dictionary<int, string> res = new Dictionary<int, string>();
+
+                string sql = "SELECT Movie_ID, Name FROM Movie WHERE LOWER(Name) LIKE LOWER(@SEARCHNAME);";
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr + "%");
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    res.Add(Convert.ToInt32(r["Movie_ID"]), r["Name"].ToString());
+                }
+                r.Close();
+
+                connection.Close();
+
+                return res;
+            }
+        }
+
+        public static Movie LoadMovie(int movieID)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+
+                string sql = "SELECT Name, Description, Year, Age, Link, Studio_ID FROM Movie WHERE Movie_ID = @ID;";
+
+                Movie movie;
+                string name = "", description = "", link = "";
+                int year = 0, age = 0, studioID = -1;
+
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@ID", movieID);
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read()){
+                    name = r["Name"].ToString();
+                    description = r["Description"].ToString();
+                    link = r["Link"].ToString();
+                    year = Convert.ToInt32(r["Year"]);
+                    age = Convert.ToInt32(r["Age"]);
+                    studioID = Convert.ToInt32(r["Studio_ID"]);
+                }
+                r.Close();
+
+                string studioName = "";
+
+                sql = @"SELECT Name FROM Studio WHERE Studio_ID = @STUDIO_ID"; 
+
+                command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@STUDIO_ID", studioID);
+                r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    studioName = r["Name"].ToString();
+                }
+                r.Close();
+
+                movie = new Movie(name, description, year, age, link, studioName, new List<Genre>(), new List<Image>(), new List<Role>());
+
+                sql = @"SELECT Genre_ID, Name 
+                        FROM Genre g
+                        WHERE 
+                            (SELECT COUNT(*)
+                            FROM MOVIE_GENRE mg
+                            WHERE (g.Genre_ID = mg.Genre_ID) AND (mg.Movie_ID = @MOVIE_ID)) > 0";
+
+                command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@MOVIE_ID", movieID);
+                r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    movie.Genres.Add(new Genre(Convert.ToInt32(r["Genre_ID"]), r["Name"].ToString()));
+                }
+                r.Close();
+
+                sql = @"SELECT URL, Description 
+                        FROM IMAGE 
+                        WHERE MOVIE_ID = @MOVIE_ID";
+
+                command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@MOVIE_ID", movieID);
+                r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    movie.Images.Add(new Image(r["URL"].ToString(), r["Description"].ToString()));
+                }
+                r.Close();
+
+                sql = @"SELECT Type_ID, Human_ID, Character 
+                        FROM ROLE
+                        WHERE Movie_ID = @MOVIE_ID";
+
+                command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@MOVIE_ID", movieID);
+                r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    int humanID = Convert.ToInt32(r["Human_ID"]);
+                    Human human = null;
+
+                    string queryHuman = "SELECT Name, Surname FROM Human WHERE Human_ID = @HUMAN_ID";
+                    SQLiteCommand commandHuman = new SQLiteCommand(queryHuman, connection);
+                    commandHuman.Parameters.AddWithValue("@HUMAN_ID", humanID);
+                    SQLiteDataReader rHuman = commandHuman.ExecuteReader();
+                    while (rHuman.Read())
+                    {
+                        human = new Human(rHuman["Name"].ToString(), rHuman["Surname"].ToString());
+                    }
+                    rHuman.Close();
+
+
+                    RoleType type = RoleType.Actor;
+                    switch (Convert.ToInt32(r["Type_ID"]))
+                    {
+                        case 1 : type = RoleType.Actor; break;
+                        case 2 : type = RoleType.Writer; break;
+                        case 3 : type = RoleType.Director; break;
+                    }
+
+                    Role role = new Role(human, type, movie);
+                    if (type == RoleType.Actor)
+                        role.Character = r["Character"].ToString();
+
+                    movie.Roles.Add(role);
+                }
+                r.Close();
+
+                connection.Close();
+
+                return movie;
+            }
+        }
+
     }
 }

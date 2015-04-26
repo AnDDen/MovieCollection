@@ -22,11 +22,19 @@ namespace MovieCollection
             }
 
             InitializeComponent();
+
+            listBox1.Items.Clear();
+            IList<Genre> genres = DataBase.GetGenres();
+            foreach (Genre g in genres)
+            {
+                listBox1.Items.Add(g.Name);
+            }
         }
 
         IList<Image> images = new List<Image>();
         int curImage = 0;
         int curMovie = -1;
+        Movie movie;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -50,6 +58,7 @@ namespace MovieCollection
                 h += c.Height + c.Padding.Top + c.Padding.Bottom;
             }
             panelSearchResults.Left = Width - panelSearchResults.Width;
+            panelSearch.Left = Width - panelSearch.Width - 18;
             if (h > Height) vScrollBar2.Visible = true;
             else vScrollBar2.Visible = false;
         }
@@ -57,10 +66,13 @@ namespace MovieCollection
         private void Form1_Load(object sender, EventArgs e)
         {
             panelView.Visible = false;
+            panelSearchResults.Left = Width - panelSearchResults.Width;
+            panelSearch.Left = Width - panelSearch.Width - 18;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            panelSearch.Visible = false;
             SearchByName();
         }
 
@@ -134,7 +146,8 @@ namespace MovieCollection
             }
             panelView.Visible = true;
             curMovie = MovieID;
-            Movie movie = DataBase.LoadMovie(MovieID);
+            
+            movie = DataBase.LoadMovie(MovieID);
             labelName.Text = movie.Name;
             labelDescription.Text = movie.Description;
             labelYear.Text = "Год выпуска: " + movie.Year.ToString();
@@ -176,12 +189,12 @@ namespace MovieCollection
             }
             curImage = 0;
 
-            Thread loadImageThread = new Thread(LoadMovie);
+            Thread loadImageThread = new Thread(LoadPics);
             loadImageThread.IsBackground = true;
             loadImageThread.Start();         
         }
 
-        void LoadMovie()
+        void LoadPics()
         {
             if (curImage < images.Count)
                 pictureBox1.Load(images[curImage].URL);
@@ -195,6 +208,7 @@ namespace MovieCollection
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             panelSearchResults.Visible = false;
+            panelSearch.Visible = false;
             if (textBox1.Text.Length >= 3)
                 SearchByName();
             
@@ -202,10 +216,53 @@ namespace MovieCollection
 
         private void button4_Click(object sender, EventArgs e)
         {
-            AddMovieForm editMovie = new AddMovieForm();
+            AddMovieForm editMovie = new AddMovieForm(movie);
             if (editMovie.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                DataBase.UpdateMovie(curMovie, movie);
+                ShowMovie(curMovie);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (panelSearch.Visible)
+            {
+                panelSearch.Visible = false;
+            }
+            else
+            {
+                panelSearch.Visible = true;
+                panelSearchResults.Visible = false;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            panelSearchResults.Visible = false;
+            panelSearch.Visible = false;
+            Search();
+        }
+
+        void Search()
+        {
+            Dictionary<int, string> searchResults = DataBase.SearchMovies(textBoxName.Text, 
+                (int)numericYear1.Value, (int)numericYear2.Value, listBox1.SelectedIndex + 1, textBoxStudio.Text);
+
+            panelSearchResults.Visible = false;
+            if (searchResults.Keys.Count > 0)
+            {
+                panelSearchResults.Visible = true;
+                vScrollBar1.Visible = false;
+                panel6.Height = 0;
+                panel6.Controls.Clear();
+                panel6.Top = 0;
+                foreach (int i in searchResults.Keys)
+                {
+                    AddSearchResult(i, searchResults[i]);
+                }
+            }
+
         }
     }
 }

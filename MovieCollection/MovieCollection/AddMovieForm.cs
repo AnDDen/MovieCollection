@@ -15,15 +15,57 @@ namespace MovieCollection
         public AddMovieForm()
         {
             InitializeComponent();
+            Movie = new Movie("");
+            numericUpDown1.Value = DateTime.Now.Year;
+            numericUpDown1.Maximum = DateTime.Now.Year + 10;
+        }
+
+        public AddMovieForm(Movie movie)
+        {
+            InitializeComponent();
+            Movie = movie;
+
+            textBox1.Text = Movie.Name;
+            textBox2.Text = Movie.Description;
+            numericUpDown1.Value = Movie.Year;
+            numericUpDown2.Value = Movie.Age;
+
+            textBox3.Text = "";
+
+            foreach (Genre g in Movie.Genres)
+            {
+                textBox3.Text += g.Name + "; ";
+            }
+
+            textBox4.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
+            foreach (Role role in Movie.Roles)
+            {
+                switch (role.Type)
+                {
+                    case RoleType.Director:
+                        textBox4.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
+                        break;
+                    case RoleType.Writer:
+                        textBox5.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
+                        break;
+                    case RoleType.Actor:
+                        textBox6.Text += string.Format("{0} {1} - {2};\r\n", role.Human.Name, role.Human.Surname, role.Character);
+                        break;
+                }
+                
+            }
+
+            textBox7.Text = Movie.Link;
+            textBox8.Text = Movie.MovieStudio;
         }
 
         public Movie Movie { get; set; }
 
         private void AddMovieForm_Load(object sender, EventArgs e)
         {
-            numericUpDown1.Value = DateTime.Now.Year;
-            numericUpDown1.Maximum = DateTime.Now.Year + 10;
-            Movie = new Movie("");
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -48,7 +90,7 @@ namespace MovieCollection
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddGenreForm addGenre = new AddGenreForm(); ;
+            AddGenreForm addGenre = new AddGenreForm();
             if (Movie.Genres.Count != 0)
                 addGenre.AddGenres(Movie.Genres);
             if (addGenre.ShowDialog() == System.Windows.Forms.DialogResult.OK)

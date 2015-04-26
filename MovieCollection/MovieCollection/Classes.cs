@@ -47,19 +47,6 @@ namespace MovieCollection
         }
     }
 
-    /*
-    public class RoleType
-    {
-        public int TypeID { get; set; }
-        public string Name { get; set; }
-
-        public RoleType(int id, string name)
-        {
-            TypeID = id;
-            Name = name;
-        }
-    } */
-
     public enum RoleType
     {
         Actor = 1,

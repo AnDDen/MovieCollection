@@ -36,6 +36,20 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panelSearch = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.textBoxStudio = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericYear2 = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericYear1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelSearchResults = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
@@ -55,32 +69,18 @@
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panelSearch = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericYear1 = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericYear2 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxStudio = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).BeginInit();
             this.panelSearchResults.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -154,6 +154,169 @@
             this.panel2.Size = new System.Drawing.Size(1272, 596);
             this.panel2.TabIndex = 1;
             // 
+            // panelSearch
+            // 
+            this.panelSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSearch.Controls.Add(this.button5);
+            this.panelSearch.Controls.Add(this.label7);
+            this.panelSearch.Controls.Add(this.listBox1);
+            this.panelSearch.Controls.Add(this.textBoxStudio);
+            this.panelSearch.Controls.Add(this.label6);
+            this.panelSearch.Controls.Add(this.label5);
+            this.panelSearch.Controls.Add(this.numericYear2);
+            this.panelSearch.Controls.Add(this.label4);
+            this.panelSearch.Controls.Add(this.numericYear1);
+            this.panelSearch.Controls.Add(this.label3);
+            this.panelSearch.Controls.Add(this.textBoxName);
+            this.panelSearch.Controls.Add(this.label2);
+            this.panelSearch.Controls.Add(this.label1);
+            this.panelSearch.Location = new System.Drawing.Point(35, -1);
+            this.panelSearch.Name = "panelSearch";
+            this.panelSearch.Size = new System.Drawing.Size(601, 240);
+            this.panelSearch.TabIndex = 5;
+            this.panelSearch.Visible = false;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(464, 197);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(114, 29);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Поиск";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(316, 36);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 17);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Жанр";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(319, 56);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.ScrollAlwaysVisible = true;
+            this.listBox1.Size = new System.Drawing.Size(259, 132);
+            this.listBox1.TabIndex = 12;
+            // 
+            // textBoxStudio
+            // 
+            this.textBoxStudio.Location = new System.Drawing.Point(23, 167);
+            this.textBoxStudio.Name = "textBoxStudio";
+            this.textBoxStudio.Size = new System.Drawing.Size(259, 22);
+            this.textBoxStudio.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 147);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 17);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Киностудия";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(124, 114);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(24, 17);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "по";
+            // 
+            // numericYear2
+            // 
+            this.numericYear2.Location = new System.Drawing.Point(154, 112);
+            this.numericYear2.Maximum = new decimal(new int[] {
+            2015,
+            0,
+            0,
+            0});
+            this.numericYear2.Minimum = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            this.numericYear2.Name = "numericYear2";
+            this.numericYear2.Size = new System.Drawing.Size(57, 22);
+            this.numericYear2.TabIndex = 8;
+            this.numericYear2.Value = new decimal(new int[] {
+            2015,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(30, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(15, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "с";
+            // 
+            // numericYear1
+            // 
+            this.numericYear1.Location = new System.Drawing.Point(51, 112);
+            this.numericYear1.Maximum = new decimal(new int[] {
+            2015,
+            0,
+            0,
+            0});
+            this.numericYear1.Minimum = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            this.numericYear1.Name = "numericYear1";
+            this.numericYear1.Size = new System.Drawing.Size(57, 22);
+            this.numericYear1.TabIndex = 6;
+            this.numericYear1.Value = new decimal(new int[] {
+            1900,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 17);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Год выпуска";
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.Location = new System.Drawing.Point(23, 56);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(259, 22);
+            this.textBoxName.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Название";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(143, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Расширенный поиск";
+            // 
             // panelSearchResults
             // 
             this.panelSearchResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -186,9 +349,10 @@
             this.panelView.Controls.Add(this.panel5);
             this.panelView.Controls.Add(this.vScrollBar2);
             this.panelView.Controls.Add(this.panel4);
-            this.panelView.Location = new System.Drawing.Point(39, 297);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(618, 260);
+            this.panelView.Size = new System.Drawing.Size(1272, 596);
             this.panelView.TabIndex = 3;
             // 
             // panel5
@@ -206,7 +370,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(400, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(197, 260);
+            this.panel5.Size = new System.Drawing.Size(851, 596);
             this.panel5.TabIndex = 4;
             // 
             // labelActor
@@ -311,7 +475,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 54);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(197, 31);
+            this.panel7.Size = new System.Drawing.Size(851, 31);
             this.panel7.TabIndex = 9;
             // 
             // button4
@@ -339,9 +503,9 @@
             // vScrollBar2
             // 
             this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar2.Location = new System.Drawing.Point(597, 0);
+            this.vScrollBar2.Location = new System.Drawing.Point(1251, 0);
             this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(21, 260);
+            this.vScrollBar2.Size = new System.Drawing.Size(21, 596);
             this.vScrollBar2.TabIndex = 5;
             // 
             // panel4
@@ -350,7 +514,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(400, 260);
+            this.panel4.Size = new System.Drawing.Size(400, 596);
             this.panel4.TabIndex = 3;
             // 
             // pictureBox1
@@ -361,169 +525,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // panelSearch
-            // 
-            this.panelSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSearch.Controls.Add(this.button5);
-            this.panelSearch.Controls.Add(this.label7);
-            this.panelSearch.Controls.Add(this.listBox1);
-            this.panelSearch.Controls.Add(this.textBoxStudio);
-            this.panelSearch.Controls.Add(this.label6);
-            this.panelSearch.Controls.Add(this.label5);
-            this.panelSearch.Controls.Add(this.numericYear2);
-            this.panelSearch.Controls.Add(this.label4);
-            this.panelSearch.Controls.Add(this.numericYear1);
-            this.panelSearch.Controls.Add(this.label3);
-            this.panelSearch.Controls.Add(this.textBoxName);
-            this.panelSearch.Controls.Add(this.label2);
-            this.panelSearch.Controls.Add(this.label1);
-            this.panelSearch.Location = new System.Drawing.Point(35, -1);
-            this.panelSearch.Name = "panelSearch";
-            this.panelSearch.Size = new System.Drawing.Size(601, 240);
-            this.panelSearch.TabIndex = 5;
-            this.panelSearch.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Расширенный поиск";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 17);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Название";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(23, 56);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(259, 22);
-            this.textBoxName.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 90);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Год выпуска";
-            // 
-            // numericYear1
-            // 
-            this.numericYear1.Location = new System.Drawing.Point(51, 112);
-            this.numericYear1.Maximum = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            this.numericYear1.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericYear1.Name = "numericYear1";
-            this.numericYear1.Size = new System.Drawing.Size(57, 22);
-            this.numericYear1.TabIndex = 6;
-            this.numericYear1.Value = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(15, 17);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "с";
-            // 
-            // numericYear2
-            // 
-            this.numericYear2.Location = new System.Drawing.Point(154, 112);
-            this.numericYear2.Maximum = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            this.numericYear2.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericYear2.Name = "numericYear2";
-            this.numericYear2.Size = new System.Drawing.Size(57, 22);
-            this.numericYear2.TabIndex = 8;
-            this.numericYear2.Value = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(124, 114);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(24, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "по";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 147);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 17);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Киностудия";
-            // 
-            // textBoxStudio
-            // 
-            this.textBoxStudio.Location = new System.Drawing.Point(23, 167);
-            this.textBoxStudio.Name = "textBoxStudio";
-            this.textBoxStudio.Size = new System.Drawing.Size(259, 22);
-            this.textBoxStudio.TabIndex = 11;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(319, 56);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(259, 132);
-            this.listBox1.TabIndex = 12;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(316, 36);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 17);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Жанр";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(464, 197);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 29);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Поиск";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
@@ -540,6 +541,10 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panelSearch.ResumeLayout(false);
+            this.panelSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).EndInit();
             this.panelSearchResults.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -547,10 +552,6 @@
             this.panel7.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelSearch.ResumeLayout(false);
-            this.panelSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -217,9 +217,6 @@ namespace MovieCollection
                         command.Parameters.AddWithValue("@CHARACTER", r.Character);
                         command.ExecuteNonQuery();
                     }
-
-                    command = new SQLiteCommand(sql, connection);
-                    command.ExecuteNonQuery();
                 }
 
                 // Insert into IMAGE

@@ -12,9 +12,13 @@ namespace MovieCollection
 {
     public partial class AddRoleForm : Form
     {
-        public AddRoleForm()
+        public AddRoleForm(RoleType roleType)
         {
             InitializeComponent();
+
+            if (roleType == RoleType.Actor)
+            {
+            }
         }
 
         IList<Panel> panels = new List<Panel>();

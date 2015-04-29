@@ -37,12 +37,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(264, 81);
+            this.button4.Location = new System.Drawing.Point(265, 109);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(104, 27);
             this.button4.TabIndex = 11;
@@ -62,7 +64,7 @@
             // button5
             // 
             this.button5.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button5.Location = new System.Drawing.Point(276, 287);
+            this.button5.Location = new System.Drawing.Point(276, 319);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(93, 31);
             this.button5.TabIndex = 9;
@@ -72,7 +74,7 @@
             // button6
             // 
             this.button6.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button6.Location = new System.Drawing.Point(177, 287);
+            this.button6.Location = new System.Drawing.Point(177, 319);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(93, 31);
             this.button6.TabIndex = 8;
@@ -83,7 +85,7 @@
             // 
             this.panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel.Controls.Add(this.vScrollBar1);
-            this.panel.Location = new System.Drawing.Point(15, 134);
+            this.panel.Location = new System.Drawing.Point(15, 166);
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(354, 140);
             this.panel.TabIndex = 12;
@@ -123,11 +125,31 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Фамилия";
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(97, 81);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(271, 22);
+            this.textBox3.TabIndex = 17;
+            this.textBox3.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 84);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 17);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Персонаж";
+            this.label3.Visible = false;
+            // 
             // AddRoleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 330);
+            this.ClientSize = new System.Drawing.Size(381, 359);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -158,6 +180,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label3;
 
     }
 }

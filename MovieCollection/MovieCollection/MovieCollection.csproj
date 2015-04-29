@@ -56,6 +56,12 @@
     <Compile Include="AddGenreForm.Designer.cs">
       <DependentUpon>AddGenreForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddImageForm.Designer.cs">
+      <DependentUpon>AddImageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddMovieForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddGenreForm.resx">
       <DependentUpon>AddGenreForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddImageForm.resx">
+      <DependentUpon>AddImageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddMovieForm.resx">
       <DependentUpon>AddMovieForm.cs</DependentUpon>

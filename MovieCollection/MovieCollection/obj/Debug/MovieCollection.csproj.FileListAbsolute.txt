@@ -20,3 +20,4 @@ C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.csproj.GenerateResource.Cache
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddGenreForm.resources
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddRoleForm.resources
+C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddImageForm.resources

@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="labelDescription.Text" xml:space="preserve">
-    <value>// Описание фильма Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris malesuada, nulla id porttitor dapibus, metus dui pharetra arcu, malesuada tincidunt sapien sem ullamcorper orci. Etiam pellentesque sollicitudin lectus, non lobortis ex mollis ac. Praesent volutpat nec lacus ut lobortis. Proin quis est quis elit consectetur semper sit amet nec sapien. Sed ut rutrum tellus, vulputate facilisis nisi. In eget leo hendrerit, consectetur massa vitae, consequat risus. Aenean varius nisi eu nisi efficitur ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris posuere, lorem varius vehicula iaculis, velit turpis vulputate ex, sed consequat velit nibh vitae magna. Ut porta lectus ut elit egestas efficitur. Donec sodales, tortor fringilla consequat rutrum, enim nisi eleifend sem, eu rhoncus leo risus ornare nibh.</value>
-  </data>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

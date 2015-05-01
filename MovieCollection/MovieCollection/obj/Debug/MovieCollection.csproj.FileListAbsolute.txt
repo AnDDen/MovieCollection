@@ -21,3 +21,16 @@ C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddGenreForm.resources
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddRoleForm.resources
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddImageForm.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\bin\Debug\MovieCollection.exe.config
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.exe
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.pdb
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\bin\Debug\MovieCollection.exe
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\bin\Debug\MovieCollection.pdb
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddGenreForm.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddImageForm.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddMovieForm.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.AddRoleForm.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.Form1.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.Properties.Resources.resources
+C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.csproj.GenerateResource.Cache

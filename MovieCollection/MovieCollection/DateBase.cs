@@ -406,10 +406,10 @@ namespace MovieCollection
 
                 Dictionary<int, string> res = new Dictionary<int, string>();
 
-                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE Name LIKE @SEARCHNAME;";
+                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE LOWER(Name) LIKE @SEARCHNAME;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
-                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr + "%");
+                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr.ToLower() + "%");
                 SQLiteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {
@@ -582,7 +582,7 @@ namespace MovieCollection
                 if (studio != "") sql += " AND (@STUDIO IN (SELECT Name FROM Studio s WHERE s.Studio_ID = m.Studio_ID))";
                 if (genreID > 0) sql += " AND (@GENRE_ID IN (SELECT Genre_ID FROM Movie_Genre mg WHERE mg.Movie_ID = m.Movie_ID))";
 
-                sql += ");";
+                sql += ") ORDER BY Name;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
                 command.Parameters.AddWithValue("@YEAR1", year1);

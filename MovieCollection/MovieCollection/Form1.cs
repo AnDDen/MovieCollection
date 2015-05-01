@@ -42,7 +42,7 @@ namespace MovieCollection
             if (movieForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 int movieID = DataBase.InsertMovie(movieForm.Movie);
-                ShowMovie(movieID);
+                ShowMovieByID(movieID);
             }
         }
 
@@ -114,7 +114,7 @@ namespace MovieCollection
             b.Height = 30;
             b.Width = 115;
             b.Text = "Перейти";
-            b.Click += (sender, e) => { ShowMovie(movieID); };
+            b.Click += (sender, e) => { ShowMovieByID(movieID); };
 
             pb.Controls.Add(b);
 
@@ -134,20 +134,9 @@ namespace MovieCollection
                 vScrollBar1.Visible = true;
         }
 
-        void ShowMovie(int MovieID)
+        void ShowMovie(Movie movie)
         {
-            panelSearchResults.Visible = false;
-            foreach (Control c in panel5.Controls)
-            {
-                if (c is Label)
-                {
-                    c.MaximumSize = new Size(panel5.Width - 30, 0);
-                }
-            }
-            panelView.Visible = true;
-            curMovie = MovieID;
-            
-            movie = DataBase.LoadMovie(MovieID);
+            this.movie = movie;
             labelName.Text = movie.Name;
             labelDescription.Text = movie.Description;
             labelYear.Text = "Год выпуска: " + movie.Year.ToString();
@@ -162,13 +151,13 @@ namespace MovieCollection
                 labelGenre.Text += g.Name + ", ";
             labelGenre.Text = labelGenre.Text.Substring(0, labelGenre.Text.Length - 2);
 
-            
+
             foreach (Role r in movie.Roles)
             {
                 switch (r.Type)
                 {
-                    case RoleType.Actor :
-                        labelActor.Text += string.Format("{0} {1} - {2},\r\n", r.Human.Name, r.Human.Surname,r.Character);
+                    case RoleType.Actor:
+                        labelActor.Text += string.Format("{0} {1} - {2},\r\n", r.Human.Name, r.Human.Surname, r.Character);
                         break;
                     case RoleType.Director:
                         labelDirector.Text += string.Format("{0} {1}, ", r.Human.Name, r.Human.Surname);
@@ -191,7 +180,23 @@ namespace MovieCollection
 
             Thread loadImageThread = new Thread(LoadPics);
             loadImageThread.IsBackground = true;
-            loadImageThread.Start();         
+            loadImageThread.Start();
+        }
+
+        void ShowMovieByID(int MovieID)
+        {
+            panelSearchResults.Visible = false;
+            foreach (Control c in panel5.Controls)
+            {
+                if (c is Label)
+                {
+                    c.MaximumSize = new Size(panel5.Width - 30, 0);
+                }
+            }
+            panelView.Visible = true;
+            curMovie = MovieID;
+            
+            ShowMovie(DataBase.LoadMovie(MovieID));     
         }
 
         void LoadPics()
@@ -220,7 +225,7 @@ namespace MovieCollection
             if (editMovie.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DataBase.UpdateMovie(curMovie, movie);
-                ShowMovie(curMovie);
+                ShowMovie(movie);
             }
         }
 

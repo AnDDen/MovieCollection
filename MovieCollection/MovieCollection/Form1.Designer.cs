@@ -51,10 +51,10 @@
             this.labelName = new System.Windows.Forms.Label();
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.prevImgBtn = new System.Windows.Forms.Button();
-            this.nextImgBtn = new System.Windows.Forms.Button();
             this.labelImage = new System.Windows.Forms.Label();
+            this.nextImgBtn = new System.Windows.Forms.Button();
+            this.prevImgBtn = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -310,27 +310,17 @@
             this.panel4.Size = new System.Drawing.Size(400, 616);
             this.panel4.TabIndex = 3;
             // 
-            // pictureBox1
+            // labelImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(19, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(364, 460);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            // 
-            // prevImgBtn
-            // 
-            this.prevImgBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.prevImgBtn.Location = new System.Drawing.Point(19, 485);
-            this.prevImgBtn.Name = "prevImgBtn";
-            this.prevImgBtn.Size = new System.Drawing.Size(49, 26);
-            this.prevImgBtn.TabIndex = 2;
-            this.prevImgBtn.Text = "←";
-            this.prevImgBtn.UseVisualStyleBackColor = true;
-            this.prevImgBtn.Click += new System.EventHandler(this.prevImgBtn_Click);
+            this.labelImage.BackColor = System.Drawing.Color.Gray;
+            this.labelImage.ForeColor = System.Drawing.Color.White;
+            this.labelImage.Location = new System.Drawing.Point(19, 425);
+            this.labelImage.Name = "labelImage";
+            this.labelImage.Size = new System.Drawing.Size(364, 54);
+            this.labelImage.TabIndex = 4;
+            this.labelImage.Text = "labelImage";
+            this.labelImage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelImage.Visible = false;
             // 
             // nextImgBtn
             // 
@@ -344,17 +334,27 @@
             this.nextImgBtn.UseVisualStyleBackColor = true;
             this.nextImgBtn.Click += new System.EventHandler(this.nextImgBtn_Click);
             // 
-            // labelImage
+            // prevImgBtn
             // 
-            this.labelImage.BackColor = System.Drawing.Color.Gray;
-            this.labelImage.ForeColor = System.Drawing.Color.White;
-            this.labelImage.Location = new System.Drawing.Point(19, 425);
-            this.labelImage.Name = "labelImage";
-            this.labelImage.Size = new System.Drawing.Size(364, 54);
-            this.labelImage.TabIndex = 4;
-            this.labelImage.Text = "labelImage";
-            this.labelImage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelImage.Visible = false;
+            this.prevImgBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.prevImgBtn.Location = new System.Drawing.Point(19, 485);
+            this.prevImgBtn.Name = "prevImgBtn";
+            this.prevImgBtn.Size = new System.Drawing.Size(49, 26);
+            this.prevImgBtn.TabIndex = 2;
+            this.prevImgBtn.Text = "←";
+            this.prevImgBtn.UseVisualStyleBackColor = true;
+            this.prevImgBtn.Click += new System.EventHandler(this.prevImgBtn_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(19, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(364, 460);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             // 
             // Form1
             // 

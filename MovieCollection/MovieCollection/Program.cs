@@ -16,6 +16,7 @@ namespace MovieCollection
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            DataBase.LoadFunctions();
             Application.Run(new Form1());
         }
     }

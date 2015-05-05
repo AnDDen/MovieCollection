@@ -9,9 +9,33 @@ using System.Globalization;
 
 namespace MovieCollection
 {
+    [SQLiteFunction(Name = "TOUPPER", Arguments = 1, FuncType = FunctionType.Scalar)]
+    public class TOUPPER : SQLiteFunction
+    {
+        public override object Invoke(object[] args)
+        {
+            return args[0].ToString().ToUpper();
+        }
+    }
+
+    [SQLiteFunction(Name = "COLLATION_CASE_INSENSITIVE", FuncType = FunctionType.Collation)]
+    class CollationCaseInsensitive : SQLiteFunction
+    {
+        public override int Compare(string param1, string param2)
+        {
+            return String.Compare(param1, param2, true);
+        }
+    }       
+
     static class DataBase
     {
         private const string PATH = "movies.sqlite";
+
+        public static void LoadFunctions()
+        {
+            TOUPPER.RegisterFunction(typeof(TOUPPER));
+            CollationCaseInsensitive.RegisterFunction(typeof(CollationCaseInsensitive));
+        }
 
         public static void Create()
         {
@@ -407,10 +431,10 @@ namespace MovieCollection
 
                 Dictionary<int, string> res = new Dictionary<int, string>();
 
-                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE Name LIKE @SEARCHNAME COLLATE UTF8CI;";
+                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE TOUPPER(Name) LIKE @SEARCHNAME;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
-                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr + "%");
+                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr.ToUpper() + "%");
                 SQLiteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {
@@ -579,7 +603,7 @@ namespace MovieCollection
 
                 string sql = @"SELECT Movie_ID, Name FROM Movie m WHERE ((Year >= @YEAR1) AND (YEAR <= @YEAR2)";
 
-                if (searchStr != "") sql += " AND (Name LIKE @SEARCHNAME)";
+                if (searchStr != "") sql += " AND (TOUPPER(Name) LIKE @SEARCHNAME)";
                 if (studio != "") sql += " AND (@STUDIO IN (SELECT Name FROM Studio s WHERE s.Studio_ID = m.Studio_ID))";
                 if (genreID > 0) sql += " AND (@GENRE_ID IN (SELECT Genre_ID FROM Movie_Genre mg WHERE mg.Movie_ID = m.Movie_ID))";
 
@@ -588,7 +612,7 @@ namespace MovieCollection
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
                 command.Parameters.AddWithValue("@YEAR1", year1);
                 command.Parameters.AddWithValue("@YEAR2", year2);
-                if (searchStr != "") command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr + "%");
+                if (searchStr != "") command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr.ToUpper() + "%");
                 if (studio != "") command.Parameters.AddWithValue("@STUDIO", studio);
                 if (genreID > 0) command.Parameters.AddWithValue("@GENRE_ID", genreID);
 

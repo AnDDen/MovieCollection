@@ -375,6 +375,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddMovieForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление фильма";
             this.Load += new System.EventHandler(this.AddMovieForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

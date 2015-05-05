@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
+using System.Globalization;
 
 namespace MovieCollection
 {
     static class DataBase
     {
         private const string PATH = "movies.sqlite";
-        
+
         public static void Create()
         {
             SQLiteConnection.CreateFile(PATH);
@@ -377,7 +378,7 @@ namespace MovieCollection
             {
                 connection.Open();
 
-                string sql = @"SELECT COUNT(*) FROM Image;";
+                string sql = @"SELECT MAX(Image_ID) FROM Image;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
 
@@ -406,10 +407,10 @@ namespace MovieCollection
 
                 Dictionary<int, string> res = new Dictionary<int, string>();
 
-                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE LOWER(Name) LIKE @SEARCHNAME;";
+                string sql = @"SELECT Movie_ID, Name FROM Movie WHERE Name LIKE @SEARCHNAME COLLATE UTF8CI;";
 
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
-                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr.ToLower() + "%");
+                command.Parameters.AddWithValue("@SEARCHNAME", "%" + searchStr + "%");
                 SQLiteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {

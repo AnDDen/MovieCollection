@@ -161,6 +161,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddRoleForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddRoleForm";
             this.panel.ResumeLayout(false);
             this.ResumeLayout(false);

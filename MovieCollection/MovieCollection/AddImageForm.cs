@@ -12,16 +12,20 @@ namespace MovieCollection
 {
     public partial class AddImageForm : Form
     {
-        public AddImageForm()
+        public AddImageForm(Dictionary<string, System.Drawing.Image> pictures)
         {
             InitializeComponent();
 
             Images = new List<Image>();
+
+            this.pictures = pictures;
         }
 
         public IList<Image> Images { get; set; }
 
         IList<Panel> panels = new List<Panel>();
+
+        Dictionary<string, System.Drawing.Image> pictures;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -64,13 +68,13 @@ namespace MovieCollection
             pb.Height = 94;
             pb.Width = 94;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
-            try
+
+            if (pictures.ContainsKey(img.URL))
+                pb.Image = pictures[img.URL];
+            else
             {
-                //pb.Image = System.Drawing.Image.FromFile(img.URL);
                 pb.Load(img.URL);
-            }
-            catch (Exception)
-            {
+                pictures[img.URL] = pb.Image;
             }
 
             p.MouseEnter += (sender, e) => { ImgMouseEnter(img); };
@@ -110,12 +114,14 @@ namespace MovieCollection
 
         void ImgMouseEnter(Image img)
         {
-            try
+            if (pictures.ContainsKey(img.URL))
+                pictureBox1.Image = pictures[img.URL];
+            else
             {
-                //pictureBox1.Image = System.Drawing.Image.FromFile(img.URL);
                 pictureBox1.Load(img.URL);
+                pictures[img.URL] = pictureBox1.Image;
             }
-            catch (Exception) { }
+
             label3.Text = img.Description;
         }
 

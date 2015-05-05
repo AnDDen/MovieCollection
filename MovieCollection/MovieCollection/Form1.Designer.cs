@@ -36,25 +36,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panelSearch = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.textBoxStudio = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericYear2 = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericYear1 = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelSearchResults = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.panelView = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panelMovieInfo = new System.Windows.Forms.Panel();
             this.labelActor = new System.Windows.Forms.Label();
             this.labelWriter = new System.Windows.Forms.Label();
             this.labelDirector = new System.Windows.Forms.Label();
@@ -69,15 +52,14 @@
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.prevImgBtn = new System.Windows.Forms.Button();
+            this.nextImgBtn = new System.Windows.Forms.Button();
+            this.labelImage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panelSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).BeginInit();
-            this.panelSearchResults.SuspendLayout();
             this.panelView.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.panelMovieInfo.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,7 +73,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1272, 57);
+            this.panel1.Size = new System.Drawing.Size(1262, 57);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -100,9 +82,9 @@
             this.panel3.Controls.Add(this.button2);
             this.panel3.Controls.Add(this.textBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(670, 0);
+            this.panel3.Location = new System.Drawing.Point(659, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(600, 55);
+            this.panel3.Size = new System.Drawing.Size(601, 55);
             this.panel3.TabIndex = 1;
             // 
             // button3
@@ -145,233 +127,40 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.panelSearch);
-            this.panel2.Controls.Add(this.panelSearchResults);
             this.panel2.Controls.Add(this.panelView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1272, 596);
+            this.panel2.Size = new System.Drawing.Size(1262, 616);
             this.panel2.TabIndex = 1;
-            // 
-            // panelSearch
-            // 
-            this.panelSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSearch.Controls.Add(this.button5);
-            this.panelSearch.Controls.Add(this.label7);
-            this.panelSearch.Controls.Add(this.listBox1);
-            this.panelSearch.Controls.Add(this.textBoxStudio);
-            this.panelSearch.Controls.Add(this.label6);
-            this.panelSearch.Controls.Add(this.label5);
-            this.panelSearch.Controls.Add(this.numericYear2);
-            this.panelSearch.Controls.Add(this.label4);
-            this.panelSearch.Controls.Add(this.numericYear1);
-            this.panelSearch.Controls.Add(this.label3);
-            this.panelSearch.Controls.Add(this.textBoxName);
-            this.panelSearch.Controls.Add(this.label2);
-            this.panelSearch.Controls.Add(this.label1);
-            this.panelSearch.Location = new System.Drawing.Point(35, -1);
-            this.panelSearch.Name = "panelSearch";
-            this.panelSearch.Size = new System.Drawing.Size(601, 240);
-            this.panelSearch.TabIndex = 5;
-            this.panelSearch.Visible = false;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(464, 197);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 29);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Поиск";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(316, 36);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 17);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Жанр";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(319, 56);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(259, 132);
-            this.listBox1.TabIndex = 12;
-            // 
-            // textBoxStudio
-            // 
-            this.textBoxStudio.Location = new System.Drawing.Point(23, 167);
-            this.textBoxStudio.Name = "textBoxStudio";
-            this.textBoxStudio.Size = new System.Drawing.Size(259, 22);
-            this.textBoxStudio.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 147);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 17);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Киностудия";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(124, 114);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(24, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "по";
-            // 
-            // numericYear2
-            // 
-            this.numericYear2.Location = new System.Drawing.Point(154, 112);
-            this.numericYear2.Maximum = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            this.numericYear2.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericYear2.Name = "numericYear2";
-            this.numericYear2.Size = new System.Drawing.Size(57, 22);
-            this.numericYear2.TabIndex = 8;
-            this.numericYear2.Value = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(15, 17);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "с";
-            // 
-            // numericYear1
-            // 
-            this.numericYear1.Location = new System.Drawing.Point(51, 112);
-            this.numericYear1.Maximum = new decimal(new int[] {
-            2015,
-            0,
-            0,
-            0});
-            this.numericYear1.Minimum = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            this.numericYear1.Name = "numericYear1";
-            this.numericYear1.Size = new System.Drawing.Size(57, 22);
-            this.numericYear1.TabIndex = 6;
-            this.numericYear1.Value = new decimal(new int[] {
-            1900,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 90);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Год выпуска";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(23, 56);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(259, 22);
-            this.textBoxName.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 17);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Название";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Расширенный поиск";
-            // 
-            // panelSearchResults
-            // 
-            this.panelSearchResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSearchResults.Controls.Add(this.panel6);
-            this.panelSearchResults.Controls.Add(this.vScrollBar1);
-            this.panelSearchResults.Location = new System.Drawing.Point(671, -1);
-            this.panelSearchResults.Name = "panelSearchResults";
-            this.panelSearchResults.Size = new System.Drawing.Size(601, 240);
-            this.panelSearchResults.TabIndex = 4;
-            this.panelSearchResults.Visible = false;
-            // 
-            // panel6
-            // 
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(580, 0);
-            this.panel6.TabIndex = 2;
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(578, 0);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(21, 238);
-            this.vScrollBar1.TabIndex = 1;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
             // 
             // panelView
             // 
-            this.panelView.Controls.Add(this.panel5);
+            this.panelView.Controls.Add(this.panelMovieInfo);
             this.panelView.Controls.Add(this.vScrollBar2);
             this.panelView.Controls.Add(this.panel4);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(1272, 596);
+            this.panelView.Size = new System.Drawing.Size(1262, 616);
             this.panelView.TabIndex = 3;
             // 
-            // panel5
+            // panelMovieInfo
             // 
-            this.panel5.Controls.Add(this.labelActor);
-            this.panel5.Controls.Add(this.labelWriter);
-            this.panel5.Controls.Add(this.labelDirector);
-            this.panel5.Controls.Add(this.labelStudio);
-            this.panel5.Controls.Add(this.labelAge);
-            this.panel5.Controls.Add(this.labelYear);
-            this.panel5.Controls.Add(this.labelGenre);
-            this.panel5.Controls.Add(this.labelDescription);
-            this.panel5.Controls.Add(this.panel7);
-            this.panel5.Controls.Add(this.labelName);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(400, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(851, 596);
-            this.panel5.TabIndex = 4;
+            this.panelMovieInfo.Controls.Add(this.labelActor);
+            this.panelMovieInfo.Controls.Add(this.labelWriter);
+            this.panelMovieInfo.Controls.Add(this.labelDirector);
+            this.panelMovieInfo.Controls.Add(this.labelStudio);
+            this.panelMovieInfo.Controls.Add(this.labelAge);
+            this.panelMovieInfo.Controls.Add(this.labelYear);
+            this.panelMovieInfo.Controls.Add(this.labelGenre);
+            this.panelMovieInfo.Controls.Add(this.labelDescription);
+            this.panelMovieInfo.Controls.Add(this.panel7);
+            this.panelMovieInfo.Controls.Add(this.labelName);
+            this.panelMovieInfo.Location = new System.Drawing.Point(400, 0);
+            this.panelMovieInfo.Name = "panelMovieInfo";
+            this.panelMovieInfo.Size = new System.Drawing.Size(838, 596);
+            this.panelMovieInfo.TabIndex = 4;
             // 
             // labelActor
             // 
@@ -475,7 +264,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 54);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(851, 31);
+            this.panel7.Size = new System.Drawing.Size(838, 31);
             this.panel7.TabIndex = 9;
             // 
             // button4
@@ -503,36 +292,78 @@
             // vScrollBar2
             // 
             this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar2.Location = new System.Drawing.Point(1251, 0);
+            this.vScrollBar2.Location = new System.Drawing.Point(1241, 0);
             this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(21, 596);
+            this.vScrollBar2.Size = new System.Drawing.Size(21, 616);
             this.vScrollBar2.TabIndex = 5;
+            this.vScrollBar2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar2_Scroll);
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.labelImage);
+            this.panel4.Controls.Add(this.nextImgBtn);
+            this.panel4.Controls.Add(this.prevImgBtn);
             this.panel4.Controls.Add(this.pictureBox1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(400, 596);
+            this.panel4.Size = new System.Drawing.Size(400, 616);
             this.panel4.TabIndex = 3;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(19, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(381, 460);
+            this.pictureBox1.Size = new System.Drawing.Size(364, 460);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
+            // 
+            // prevImgBtn
+            // 
+            this.prevImgBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.prevImgBtn.Location = new System.Drawing.Point(19, 485);
+            this.prevImgBtn.Name = "prevImgBtn";
+            this.prevImgBtn.Size = new System.Drawing.Size(49, 26);
+            this.prevImgBtn.TabIndex = 2;
+            this.prevImgBtn.Text = "←";
+            this.prevImgBtn.UseVisualStyleBackColor = true;
+            this.prevImgBtn.Click += new System.EventHandler(this.prevImgBtn_Click);
+            // 
+            // nextImgBtn
+            // 
+            this.nextImgBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nextImgBtn.Location = new System.Drawing.Point(334, 486);
+            this.nextImgBtn.Name = "nextImgBtn";
+            this.nextImgBtn.Size = new System.Drawing.Size(49, 25);
+            this.nextImgBtn.TabIndex = 3;
+            this.nextImgBtn.Text = "→";
+            this.nextImgBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.nextImgBtn.UseVisualStyleBackColor = true;
+            this.nextImgBtn.Click += new System.EventHandler(this.nextImgBtn_Click);
+            // 
+            // labelImage
+            // 
+            this.labelImage.BackColor = System.Drawing.Color.Gray;
+            this.labelImage.ForeColor = System.Drawing.Color.White;
+            this.labelImage.Location = new System.Drawing.Point(19, 425);
+            this.labelImage.Name = "labelImage";
+            this.labelImage.Size = new System.Drawing.Size(364, 54);
+            this.labelImage.TabIndex = 4;
+            this.labelImage.Text = "labelImage";
+            this.labelImage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelImage.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1272, 653);
+            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "Form1";
             this.Text = "Коллекция фильмов";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -541,14 +372,9 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panelSearch.ResumeLayout(false);
-            this.panelSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericYear1)).EndInit();
-            this.panelSearchResults.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.panelMovieInfo.ResumeLayout(false);
+            this.panelMovieInfo.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -566,7 +392,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelView;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panelMovieInfo;
         private System.Windows.Forms.Label labelActor;
         private System.Windows.Forms.Label labelWriter;
         private System.Windows.Forms.Label labelDirector;
@@ -578,26 +404,12 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panelSearchResults;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
-        private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.VScrollBar vScrollBar2;
-        private System.Windows.Forms.Panel panelSearch;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericYear2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericYear1;
-        private System.Windows.Forms.TextBox textBoxStudio;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label labelImage;
+        private System.Windows.Forms.Button nextImgBtn;
+        private System.Windows.Forms.Button prevImgBtn;
     }
 }
 

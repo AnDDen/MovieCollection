@@ -12,18 +12,23 @@ namespace MovieCollection
 {
     public partial class AddMovieForm : Form
     {
-        public AddMovieForm()
+        public AddMovieForm(Dictionary<string, System.Drawing.Image> pictures)
         {
             InitializeComponent();
             Movie = new Movie("");
             numericUpDown1.Value = DateTime.Now.Year;
             numericUpDown1.Maximum = DateTime.Now.Year + 10;
+            this.pictures = pictures;
         }
 
-        public AddMovieForm(Movie movie)
+        Dictionary<string, System.Drawing.Image> pictures;
+
+        public AddMovieForm(Movie movie, Dictionary<string, System.Drawing.Image> pictures)
         {
             InitializeComponent();
             Movie = movie;
+
+            this.pictures = pictures;
 
             textBox1.Text = Movie.Name;
             textBox2.Text = Movie.Description;
@@ -216,7 +221,7 @@ namespace MovieCollection
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AddImageForm imgForm = new AddImageForm();
+            AddImageForm imgForm = new AddImageForm(pictures);
             if (Movie.Images.Count != 0)
             {
                 foreach (Image img in Movie.Images)

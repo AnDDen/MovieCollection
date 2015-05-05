@@ -23,22 +23,30 @@ namespace MovieCollection
 
             InitializeComponent();
 
-            listBox1.Items.Clear();
-            IList<Genre> genres = DataBase.GetGenres();
-            foreach (Genre g in genres)
-            {
-                listBox1.Items.Add(g.Name);
-            }
+            labelImage.BackColor = Color.FromArgb(150, 0, 0, 0);
+            labelImage.Dock = DockStyle.Bottom;
+            labelImage.Parent = pictureBox1;
+
+            loadImageThread = new Thread(LoadPics);
+
+            pictures = new Dictionary<string, System.Drawing.Image>();
         }
 
+        SearchForm searchForm = new SearchForm();
+
         IList<Image> images = new List<Image>();
+
+        Dictionary<string, System.Drawing.Image> pictures;
+
         int curImage = 0;
         int curMovie = -1;
         Movie movie;
 
+        Thread loadImageThread;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            AddMovieForm movieForm = new AddMovieForm();
+            AddMovieForm movieForm = new AddMovieForm(pictures);
             if (movieForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 int movieID = DataBase.InsertMovie(movieForm.Movie);
@@ -46,93 +54,66 @@ namespace MovieCollection
             }
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        void AdjustPanelSize()
         {
             int h = 0;
-            foreach (Control c in panel5.Controls)
+            foreach (Control c in panelMovieInfo.Controls)
             {
                 if (c is Label)
                 {
-                    c.MaximumSize = new Size(panel5.Width - 30, 0); 
+                    c.MaximumSize = new Size(panelMovieInfo.Width - 30, 0); 
                 }
                 h += c.Height + c.Padding.Top + c.Padding.Bottom;
             }
-            panelSearchResults.Left = Width - panelSearchResults.Width;
-            panelSearch.Left = Width - panelSearch.Width - 18;
-            if (h > Height) vScrollBar2.Visible = true;
-            else vScrollBar2.Visible = false;
+
+            int scroll = 1;
+            if (h > Height)
+            {
+                vScrollBar2.Visible = true;
+                int dh = h - Height;
+                vScrollBar2.Minimum = Height;
+                vScrollBar2.Maximum = h + 10;
+                vScrollBar2.SmallChange = dh / 10;
+                vScrollBar2.LargeChange = dh;
+            }
+            else
+            { 
+                vScrollBar2.Visible = false; 
+                scroll = 0;
+                panelMovieInfo.Top = 0;
+            }
+
+            panelMovieInfo.Left = panel4.Left + panel4.Width;
+            panelMovieInfo.Width = panelView.Width - panelMovieInfo.Left - scroll * vScrollBar2.Width;
+            panelMovieInfo.Height = panelView.Height;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            AdjustPanelSize();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             panelView.Visible = false;
-            panelSearchResults.Left = Width - panelSearchResults.Width;
-            panelSearch.Left = Width - panelSearch.Width - 18;
+
+            AdjustPanelSize();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            panelSearch.Visible = false;
             SearchByName();
         }
 
         void SearchByName()
         {
             Dictionary<int, string> searchResults = DataBase.SearchMovies(textBox1.Text);
-            panelSearchResults.Visible = false;
-            if (searchResults.Keys.Count > 0)
-            {
-                panelSearchResults.Visible = true;
-                vScrollBar1.Visible = false;
-                panel6.Height = 0;
-                panel6.Controls.Clear();
-                panel6.Top = 0;
-                foreach (int i in searchResults.Keys)
-                {
-                    AddSearchResult(i, searchResults[i]);
-                }
-            }
-            
+
+            SearchResultsForm search = new SearchResultsForm(searchResults, this);
+            search.ShowDialog();            
         }
 
-        void AddSearchResult(int movieID, string name)
-        {
-            int k = panelSearchResults.Controls.Count;
-
-            Panel p = new Panel();
-            p.Name = string.Format("searchResult{0}", k);
-            p.Dock = DockStyle.Top;
-            p.Height = 60;
-
-            Panel pb = new Panel();
-            pb.Dock = DockStyle.Right;
-            pb.Width = 140;
-
-            Button b = new Button();
-            b.Left = 10;
-            b.Top = 15;
-            b.Height = 30;
-            b.Width = 115;
-            b.Text = "Перейти";
-            b.Click += (sender, e) => { ShowMovieByID(movieID); };
-
-            pb.Controls.Add(b);
-
-            Label l = new Label();
-            l.Padding = new Padding(10, 19, 10, 20);
-            l.Dock = DockStyle.Fill;
-            l.Text = name;
-
-            p.Controls.Add(pb);
-            p.Controls.Add(l);
-            
-            panel6.Top = 0;
-            panel6.Height += 60;
-            panel6.Controls.Add(p);
-
-            if (panel6.Height > 240)
-                vScrollBar1.Visible = true;
-        }
+        
 
         void ShowMovie(Movie movie)
         {
@@ -146,6 +127,7 @@ namespace MovieCollection
             labelDirector.Text = "Режиссёры: ";
             labelActor.Text = "Актёры: \r\n";
             labelWriter.Text = "Сценаристы: ";
+            if (loadImageThread.IsAlive) loadImageThread.Abort();
 
             foreach (Genre g in movie.Genres)
                 labelGenre.Text += g.Name + ", ";
@@ -178,50 +160,72 @@ namespace MovieCollection
             }
             curImage = 0;
 
-            Thread loadImageThread = new Thread(LoadPics);
-            loadImageThread.IsBackground = true;
-            loadImageThread.Start();
+            /*prevImgBtn.Hide();
+            if (curImage >= images.Count - 1) nextImgBtn.Hide();
+
+            if (images[curImage].URL != "")
+                labelImage.Text = images[curImage].Description;
+
+            if (pictures.ContainsKey(images[curImage].URL))
+                pictureBox1.Image = pictures[images[curImage].URL];
+            else
+            {
+                loadImageThread = new Thread(LoadPics);
+                loadImageThread.IsBackground = true;
+                loadImageThread.Start();
+            } */
+
+            LoadImage();
         }
 
-        void ShowMovieByID(int MovieID)
+        void LoadImage()
         {
-            panelSearchResults.Visible = false;
-            foreach (Control c in panel5.Controls)
+            if (loadImageThread.IsAlive) loadImageThread.Abort();
+
+            if (images[curImage].URL != "")
+                labelImage.Text = images[curImage].Description;
+
+            if (pictures.ContainsKey(images[curImage].URL))
+                pictureBox1.Image = pictures[images[curImage].URL];
+            else
             {
-                if (c is Label)
-                {
-                    c.MaximumSize = new Size(panel5.Width - 30, 0);
-                }
+                loadImageThread = new Thread(LoadPics);
+                loadImageThread.IsBackground = true;
+                loadImageThread.Start();
             }
-            panelView.Visible = true;
-            curMovie = MovieID;
-            
-            ShowMovie(DataBase.LoadMovie(MovieID));     
+
+            if (curImage == 0) prevImgBtn.Hide(); else prevImgBtn.Show();
+            if (curImage >= images.Count - 1) nextImgBtn.Hide(); else nextImgBtn.Show();
         }
 
         void LoadPics()
         {
             if (curImage < images.Count)
+            {
                 pictureBox1.Load(images[curImage].URL);
+                pictures.Add(images[curImage].URL, pictureBox1.Image);
+            }
         }
 
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        public void ShowMovieByID(int MovieID)
         {
-            panel6.Top += e.OldValue - e.NewValue;
+            panelView.Visible = true;
+            curMovie = MovieID;
+            
+            ShowMovie(DataBase.LoadMovie(MovieID));
+
+            AdjustPanelSize();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            panelSearchResults.Visible = false;
-            panelSearch.Visible = false;
-            if (textBox1.Text.Length >= 3)
-                SearchByName();
-            
+           // if (textBox1.Text.Length >= 3)
+           //     SearchByName();            
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            AddMovieForm editMovie = new AddMovieForm(movie);
+            AddMovieForm editMovie = new AddMovieForm(movie, pictures);
             if (editMovie.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DataBase.UpdateMovie(curMovie, movie);
@@ -231,43 +235,51 @@ namespace MovieCollection
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (panelSearch.Visible)
+            if (searchForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                panelSearch.Visible = false;
-            }
-            else
-            {
-                panelSearch.Visible = true;
-                panelSearchResults.Visible = false;
+                Dictionary<int, string> searchResults = DataBase.SearchMovies(searchForm.MovieName,
+                searchForm.Year1, searchForm.Year2, searchForm.GenreID, searchForm.Studio);
+
+                SearchResultsForm search = new SearchResultsForm(searchResults, this);
+                search.ShowDialog(); 
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void vScrollBar2_Scroll(object sender, ScrollEventArgs e)
         {
-            panelSearchResults.Visible = false;
-            panelSearch.Visible = false;
-            Search();
+            int d = e.NewValue - e.OldValue;
+            panelMovieInfo.Top = panelMovieInfo.Top - d;
         }
 
-        void Search()
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            Dictionary<int, string> searchResults = DataBase.SearchMovies(textBoxName.Text, 
-                (int)numericYear1.Value, (int)numericYear2.Value, listBox1.SelectedIndex + 1, textBoxStudio.Text);
+            if (images[curImage].Description != "")
+                labelImage.Show();
+        }
 
-            panelSearchResults.Visible = false;
-            if (searchResults.Keys.Count > 0)
-            {
-                panelSearchResults.Visible = true;
-                vScrollBar1.Visible = false;
-                panel6.Height = 0;
-                panel6.Controls.Clear();
-                panel6.Top = 0;
-                foreach (int i in searchResults.Keys)
-                {
-                    AddSearchResult(i, searchResults[i]);
-                }
-            }
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            labelImage.Hide();
+        }
 
+        private void prevImgBtn_Click(object sender, EventArgs e)
+        {
+            if (curImage <= 0 || curImage >= images.Count)
+                return;
+
+            curImage--;
+
+            LoadImage();
+        }
+
+        private void nextImgBtn_Click(object sender, EventArgs e)
+        {
+            if (curImage < 0 || curImage >= images.Count)
+                return;
+
+            curImage++;
+
+            LoadImage();
         }
     }
 }

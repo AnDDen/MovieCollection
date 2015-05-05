@@ -123,6 +123,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddGenreForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Жанры";
             this.panel.ResumeLayout(false);
             this.ResumeLayout(false);

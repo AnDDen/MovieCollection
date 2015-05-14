@@ -628,5 +628,19 @@ namespace MovieCollection
                 return res;
             }
         }
+
+        public static int LatestID()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+                string sql = @"SELECT MAX(Movie_ID) FROM Movie;";
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                int id = Convert.ToInt32(command.ExecuteScalar());
+                connection.Close();
+
+                return id;
+            }
+        }
     }
 }

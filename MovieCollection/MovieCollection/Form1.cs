@@ -95,7 +95,10 @@ namespace MovieCollection
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            panelView.Visible = false;
+            panelView.Visible = true;
+
+            curMovie = DataBase.LatestID();
+            ShowMovieByID(curMovie);
 
             AdjustPanelSize();
         }

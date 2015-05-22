@@ -223,25 +223,13 @@ namespace MovieCollection
                     if (humanID == -1)
                         humanID = InsertHuman(r.Human);
 
-                    if (r.Type != RoleType.Actor)
-                    {
-                        sql = @"INSERT INTO Role (Movie_ID, Type_ID, Human_ID) VALUES (@MOVIE_ID, @TYPE_ID, @HUMAN_ID)";
-                        command = new SQLiteCommand(sql, connection);
-                        command.Parameters.AddWithValue("@MOVIE_ID", movieID);
-                        command.Parameters.AddWithValue("@TYPE_ID", (int)r.Type);
-                        command.Parameters.AddWithValue("@HUMAN_ID", humanID);
-                        command.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        sql = @"INSERT INTO Role (Movie_ID, Type_ID, Human_ID, Character) VALUES (@MOVIE_ID, @TYPE_ID, @HUMAN_ID, @CHARACTER)";
-                        command = new SQLiteCommand(sql, connection);
-                        command.Parameters.AddWithValue("@MOVIE_ID", movieID);
-                        command.Parameters.AddWithValue("@TYPE_ID", (int)r.Type);
-                        command.Parameters.AddWithValue("@HUMAN_ID", humanID);
-                        command.Parameters.AddWithValue("@CHARACTER", r.Character);
-                        command.ExecuteNonQuery();
-                    }
+                    sql = @"INSERT INTO Role (Movie_ID, Type_ID, Human_ID, Character) VALUES (@MOVIE_ID, @TYPE_ID, @HUMAN_ID, @CHARACTER)";
+                    command = new SQLiteCommand(sql, connection);
+                    command.Parameters.AddWithValue("@MOVIE_ID", movieID);
+                    command.Parameters.AddWithValue("@TYPE_ID", (int)r.Type);
+                    command.Parameters.AddWithValue("@HUMAN_ID", humanID);
+                    command.Parameters.AddWithValue("@CHARACTER", r.Character);
+                    command.ExecuteNonQuery();
                 }
 
                 // Insert into IMAGE

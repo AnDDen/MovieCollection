@@ -224,12 +224,12 @@ namespace MovieCollection
             AddImageForm imgForm = new AddImageForm(pictures);
             if (Movie.Images.Count != 0)
             {
-                foreach (Image img in Movie.Images)
+                imgForm.Images.Clear();
+                for (int n = 0; n < Movie.Images.Count; n++)
                 {
-                    imgForm.Images.Add(img);
-                    imgForm.AddPanel(img);
+                    imgForm.Images.Add(Movie.Images[n]);
+                    imgForm.AddPanel(n);
                 }
-
             }
             if (imgForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {

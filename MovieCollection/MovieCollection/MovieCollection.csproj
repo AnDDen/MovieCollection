@@ -75,6 +75,12 @@
       <DependentUpon>AddRoleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DateBase.cs" />
+    <Compile Include="EditHumanRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditHumanRole.Designer.cs">
+      <DependentUpon>EditHumanRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddRoleForm.resx">
       <DependentUpon>AddRoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditHumanRole.resx">
+      <DependentUpon>EditHumanRole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditImageForm.resx">
       <DependentUpon>EditImageForm.cs</DependentUpon>

@@ -170,7 +170,7 @@ namespace MovieCollection
                     if (Images.FirstOrDefault((x) => { return x.URL == img.URL; }) == null)
                     {
                         Images.Add(img);
-                        int n = Images.Count;
+                        int n = Images.Count - 1;
                         AddPanel(n);
                     }
                 }

@@ -630,5 +630,21 @@ namespace MovieCollection
                 return id;
             }
         }
+
+        public static bool HumanExist(Human h)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=movies.sqlite;Version=3;"))
+            {
+                connection.Open();
+                string sql = @"SELECT COUNT(*) FROM Human WHERE (NAME = @NAME) AND (SURNAME = @SURNAME);";
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@NAME", h.Name);
+                command.Parameters.AddWithValue("@SURNAME", h.Surname);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                connection.Close();
+
+                return count > 0;
+            }
+        }
     }
 }

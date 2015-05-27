@@ -114,103 +114,114 @@ namespace MovieCollection
         private void button2_Click(object sender, EventArgs e)
         {
             AddRoleForm addDirector = new AddRoleForm(RoleType.Director, Movie);
-            IList<Role> old = new List<Role>();
             if (Movie.Roles.Any((x) => { return x.Type == RoleType.Director; }))
             {
+                if (Movie.Images.Count != 0)
+                {
+                    addDirector.Roles.Clear();
+                    int k = 0;
+                    for (int n = 0; n < Movie.Roles.Count; n++)
+                    {
+                        if (Movie.Roles[n].Type == RoleType.Director)
+                        {
+                            addDirector.Roles.Add(Movie.Roles[n]);
+                            addDirector.AddPanel(k++);
+                        }
+                    }
+                }
+            }
+            if (addDirector.ShowDialog() == System.Windows.Forms.DialogResult.OK )
+            {
+                textBox4.Text = "";
+
                 Role r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Director; });
                 while (r != null)
                 {
-                    addDirector.Roles.Add(r);
-                    old.Add(r);
-                    addDirector.AddPanel(r);
                     Movie.Roles.Remove(r);
                     r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Director; });
                 }
-            }
-            switch (addDirector.ShowDialog())
-            {
-                case System.Windows.Forms.DialogResult.OK :
-                    textBox4.Text = "";
-                    foreach (Role role in addDirector.Roles)
-                    {
-                        Movie.Roles.Add(role);
-                        textBox4.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
-                    }
-                    break;
 
-                case System.Windows.Forms.DialogResult.Cancel :
-                    foreach (Role role in old)
-                        Movie.Roles.Add(role);
-                    break;
+                foreach (Role role in addDirector.Roles)
+                {
+                    Movie.Roles.Add(role);
+                    textBox4.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
+                }
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            AddRoleForm addWriter = new AddRoleForm(RoleType.Writer, Movie);
-            IList<Role> old = new List<Role>();                       
+            AddRoleForm addWriter = new AddRoleForm(RoleType.Writer, Movie);                     
             if (Movie.Roles.Any((x) => { return x.Type == RoleType.Writer; }))
             {
+                if (Movie.Images.Count != 0)
+                {
+                    addWriter.Roles.Clear();
+                    int k = 0;
+                    for (int n = 0; n < Movie.Roles.Count; n++)
+                    {
+                        if (Movie.Roles[n].Type == RoleType.Writer)
+                        {
+                            addWriter.Roles.Add(Movie.Roles[n]);
+                            addWriter.AddPanel(k++);
+                        }
+                    }
+                }
+            }
+            if (addWriter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBox5.Text = "";
+
                 Role r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Writer; });
                 while (r != null)
                 {
-                    addWriter.Roles.Add(r);
-                    old.Add(r);
-                    addWriter.AddPanel(r);
                     Movie.Roles.Remove(r);
                     r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Writer; });
                 }
-            }
-            switch (addWriter.ShowDialog())
-            {
-                case System.Windows.Forms.DialogResult.OK:
-                    textBox5.Text = "";
-                    foreach (Role role in addWriter.Roles)
-                    {
-                        Movie.Roles.Add(role);
-                        textBox5.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
-                    }
-                    break;
 
-                case System.Windows.Forms.DialogResult.Cancel:
-                    foreach (Role role in old)
-                        Movie.Roles.Add(role);
-                    break;
+                foreach (Role role in addWriter.Roles)
+                {
+                    Movie.Roles.Add(role);
+                    textBox5.Text += string.Format("{0} {1};\r\n", role.Human.Name, role.Human.Surname);
+                }
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             AddRoleForm addActor = new AddRoleForm(RoleType.Actor, Movie);
-            IList<Role> old = new List<Role>();
             if (Movie.Roles.Any((x) => { return x.Type == RoleType.Actor; }))
             {
+                if (Movie.Images.Count != 0)
+                {
+                    addActor.Roles.Clear();
+                    int k = 0;
+                    for (int n = 0; n < Movie.Roles.Count; n++)
+                    {
+                        if (Movie.Roles[n].Type == RoleType.Actor)
+                        {
+                            addActor.Roles.Add(Movie.Roles[n]);
+                            addActor.AddPanel(k++);
+                        }
+                    }
+                }
+            }
+            if (addActor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBox6.Text = "";
+
                 Role r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Actor; });
                 while (r != null)
                 {
-                    addActor.Roles.Add(r);
-                    old.Add(r);
-                    addActor.AddPanel(r);
                     Movie.Roles.Remove(r);
                     r = Movie.Roles.FirstOrDefault((x) => { return x.Type == RoleType.Actor; });
                 }
-            }
-            switch (addActor.ShowDialog())
-            {
-                case System.Windows.Forms.DialogResult.OK:
-                    textBox6.Text = "";
 
-                    foreach (Role role in addActor.Roles)
-                    {
-                        Movie.Roles.Add(role);
-                        textBox6.Text += string.Format("{0} {1} - {2};\r\n", role.Human.Name, role.Human.Surname, role.Character);
-                    }
-                    break;
-
-                case System.Windows.Forms.DialogResult.Cancel:
-                    foreach (Role role in old)
-                        Movie.Roles.Add(role);
-                    break;
+                foreach (Role role in addActor.Roles)
+                {
+                    Movie.Roles.Add(role);
+                    textBox6.Text += string.Format("{0} {1} - {2};\r\n", role.Human.Name, role.Human.Surname, role.Character);
+                }
             }
         }
 

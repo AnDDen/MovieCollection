@@ -39,3 +39,4 @@ C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection
 C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.SearchForm.resources
 C:\Users\Admin\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.SearchResultsForm.resources
 C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.EditImageForm.resources
+C:\Users\fgnmgm\Documents\GitHub\MovieCollection\MovieCollection\MovieCollection\obj\Debug\MovieCollection.EditHumanRole.resources

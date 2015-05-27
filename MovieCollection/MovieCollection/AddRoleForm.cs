@@ -19,15 +19,10 @@ namespace MovieCollection
             this.type = type;
             this.movie = movie;
 
-            label3.Visible = false;
-            textBox3.Visible = false;
-
             switch (type)
             {
                 case RoleType.Actor:
                     Text = "Актёры";
-                    label3.Visible = true;
-                    textBox3.Visible = true;
                     break;
                 case RoleType.Director:
                     Text = "Режиссёры";
@@ -46,14 +41,14 @@ namespace MovieCollection
 
         public Movie movie { get; set; }
 
-        //public IList<Human> Humans = new List<Human>();
-
         public IList<Role> Roles { get; set; }
 
-        public void AddPanel(Role r)
+        public void AddPanel(int n)
         {
             Panel p = new Panel();
             int k = panels.Count;
+
+            Role r = Roles[n];
 
             p.Name = "Panel_" + r.Human.Name + "_" + r.Human.Surname + "_" + r.Character;
             p.Left = 0;
@@ -67,7 +62,7 @@ namespace MovieCollection
             b.Height = 28;
             b.Left = 620;
             b.Top = 16;
-            b.Click += (sender, e) => { Delete(r); };
+            b.Click += (sender, e) => { Delete(n); };
 
             Label l = new Label();
             l.Text = r.Human.Name + " " + r.Human.Surname;
@@ -77,6 +72,9 @@ namespace MovieCollection
             l.Left = 3;
             l.Height = 48;
             l.TextAlign = ContentAlignment.MiddleCenter;
+
+            p.DoubleClick += (sender, e) => { Edit(n, p, l); };
+            l.DoubleClick += (sender, e) => { Edit(n, p, l); };
 
             p.Controls.Add(l);
             p.Controls.Add(b);
@@ -92,19 +90,20 @@ namespace MovieCollection
 
             panel.Controls.Add(panels[k]);
 
-            if (60 * panels.Count >= 140)
+            if (60 * panels.Count >= panel.Height)
             {
                 vScrollBar1.Visible = true;
-                vScrollBar1.Maximum = 60 * panels.Count - 140 + 20;
+                vScrollBar1.Maximum = 60 * panels.Count - panel.Height + 20;
                 vScrollBar1.LargeChange = 10;
             }
             else
                 vScrollBar1.Visible = false;
         }
 
-        void Delete(Role r)
+        void Delete(int n)
         {
-            Roles.Remove(r);
+            Role r = Roles[n];
+            Roles.RemoveAt(n);
 
             Panel p = panels.FirstOrDefault((x) => { return x.Name == "Panel_" + r.Human.Name + "_" + r.Human.Surname + "_" + r.Character; });
             int k = panels.IndexOf(p);
@@ -121,10 +120,10 @@ namespace MovieCollection
             panel.Controls.Remove(p);
             panels.Remove(p);
 
-            if (60 * panels.Count >= 140)
+            if (60 * panels.Count >= panel.Height)
             {
                 vScrollBar1.Visible = true;
-                vScrollBar1.Maximum = 60 * panels.Count - 140 + 20;
+                vScrollBar1.Maximum = 60 * panels.Count - panel.Height + 20;
                 vScrollBar1.LargeChange = 10;
             }
             else
@@ -132,26 +131,39 @@ namespace MovieCollection
             
         }
 
+        void Add()
+        {
+            EditHumanRole editForm = new EditHumanRole(type, movie);
+            if (editForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Role r = editForm.Role;
+
+                if (Roles.FirstOrDefault((x) => { return x.Human.Name == r.Human.Name && x.Human.Surname == r.Human.Surname &&
+                                            (x.Character == r.Character || type != RoleType.Actor); }) == null)
+                {
+                    Roles.Add(r);
+                    AddPanel(Roles.Count - 1);
+                }
+
+            }
+        }
+
+        void Edit(int n, Panel p, Label l)
+        {
+            EditHumanRole editForm = new EditHumanRole(type, movie);
+            editForm.Role = Roles[n];
+            if (editForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Roles[n] = editForm.Role;
+
+                l.Text = Roles[n].Human.Name + " " + Roles[n].Human.Surname;
+                if (type == RoleType.Actor) l.Text += "\n\r" + Roles[n].Character;
+            }
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
-            string name = textBox1.Text;
-            string surname = textBox2.Text;
-            string character = textBox3.Text;
-
-            if (Roles.FirstOrDefault((x) => { return x.Human.Name == name && x.Human.Surname == surname && 
-                                                (x.Character == character || type != RoleType.Actor); }) == null)
-            {
-                Human h = new Human(name, surname);
-                //Humans.Add(h);
-                Role r = new Role(h, type, movie);
-                Roles.Add(r);
-                if (type == RoleType.Actor)
-                {
-                    r.Character = character;
-                    AddPanel(r);
-                }
-                else AddPanel(r);
-            }
+            Add();
         }
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
